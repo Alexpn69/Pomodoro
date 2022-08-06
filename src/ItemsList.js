@@ -7,7 +7,7 @@ export default function ItemsList({items, onDeleteClick, onToggle}) {
  <div className="flex flex-wrap">
       {items.map((item) => (
         <div key={item.id} className={item.complete 
-          ? " bg-green-500 p-2 m-3 mx-auto flex  justify-center font-semibold text-white border-4 rounded-lg cursor-pointer" 
+          ? " bg-green-500 p-2 m-3 mx-auto flex  justify-center font-semibold text-white border-4 rounded-lg" 
           : "p-2 m-3 mx-auto flex justify-center font-semibold text-white border-4 rounded-lg cursor-pointer"}>
           <div className={item.complete 
         ? "p-3 line-through items-center cursor-pointer" 

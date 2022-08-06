@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function Timer ({onMinChange, onStopClick, onToggleClick, min, sec, startstop, setActive}){
+export default function Timer ({onStopClick, onToggleClick, min, sec, startstop, setActive}){
  
   return (
     <div> 

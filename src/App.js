@@ -3,6 +3,7 @@ import Timer from './Timer';
 import Breake from './Breake';
 import Todo from './ToDoList';
 import Modal from './modal';
+// import Button from './button';
 
 
 
@@ -10,7 +11,7 @@ function App() {
  const [breake, setBreake] = useState(false)
  const [todo, setTodo] = useState(false)  
 
- const [minutes, setMinutes] = useState(25);
+ const [minutes, setMinutes] = useState(15);
  const [seconds, setSeconds] = useState(0);
  const [startstop, setStartstop] = useState(false);
  
@@ -41,7 +42,7 @@ const [modalActive, setModalActive] = useState(false)
  }
 
  function handleStopClick() {
-   setMinutes(25);
+   setMinutes(15);
    setSeconds(0);
    setStartstop(false);
  }
@@ -53,7 +54,7 @@ const [modalActive, setModalActive] = useState(false)
 
  function handleChangeTimer(){
   setBreake(true)
-  setMinutes(10)
+  setMinutes(5)
   setSeconds(0)
   setStartstop(false)
  }
@@ -63,13 +64,20 @@ const [modalActive, setModalActive] = useState(false)
   handleStopClick()
  }
 
+//  function handleSetTodo(){
+//   setTodo(true)
+//  }
 
  if(breake){
  
 
  return (
-  <><div className="container h-screen text-center bg-[url('foto4.jpg')] bg-cover bg-center">
-
+  <>
+  
+  <div className="bg-red-700 min-h-screen justify-center text-center">
+      <div className = "max-w-2xl min-h-screen mx-auto">
+  
+ 
   <Breake 
   min={minutes}
   sec={seconds}
@@ -86,14 +94,21 @@ const [modalActive, setModalActive] = useState(false)
              onClick={handleChangeBrake}>ЗА РАБОТУ</button>
   
   
-  </div></>) 
+  
+  </div>
+  </div>
+  </>) 
    } 
  
  
  else {
    if(!todo){
       return (<>
-               <div className="container h-screen text-center bg-[url('foto4.jpg')] bg-cover bg-center">
+
+<div className="bg-red-700 min-h-screen justify-center text-center">
+      <div className = "max-w-2xl min-h-screen mx-auto">
+
+          
                <form action="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank">
          <button type='submit'
  className="mtransition duration-500 ease-in-out  
@@ -126,15 +141,26 @@ const [modalActive, setModalActive] = useState(false)
 
 
         <div className="flex justify-center space-x-6">
+
          <button className="mtransition duration-500 ease-in-out  
        bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
        text-3xl font-bold font-color-white text-white" 
           onClick={handleChangeTimer}>УЖЕ УСТАЛ?</button>
+
+          {/* <Button 
+          onChangeTimer={handleChangeTimer}>УЖЕ УСТАЛ?</Button> */}
+
+
           <button className="mtransition duration-500 ease-in-out  
        bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
        text-3xl font-bold font-color-white text-white" 
           onClick={() => setTodo(true)}>СПИСОК ДЕЛ</button>
+{/* 
+          <Button 
+          onSetTodo={handleSetTodo}>Список дел</Button> */}
+
          </div>      
+    </div>
     </div>
     </>
     )
@@ -142,13 +168,18 @@ const [modalActive, setModalActive] = useState(false)
    
    
    else {
-      return (<div className="container h-screen 
-      text-center bg-[url('foto4.jpg')] bg-cover bg-center bg-scroll">
+      return (
+
+<div className="bg-red-700 min-h-screen justify-center text-center">
+      <div className = "max-w-2xl min-h-screen mx-auto">
+        
+      
       <Todo />
       <button className="mtransition duration-500 ease-in-out  
        bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
        text-3xl font-bold font-color-white text-white" 
              onClick={() => setTodo(false)}>ХВАТИТ ПЛАНИРОВАТЬ</button>
+      </div>
       </div>)
    }
  }
