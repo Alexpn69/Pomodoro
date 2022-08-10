@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ItemsList from "./ItemsList";
 import AddItem from "./AddItem";
+import BigButton from "./bigButton";
 
 export default function Todo() {
-  // const [items, setItems] = useState([])
+
   const [items, setItems] = useState(() => {
-    return JSON.parse(localStorage.getItem("items")) || [];
+    return JSON.parse(localStorage.getItem("items")) || []
   });
   const [name, setName] = useState("");
   const [valid, setValid] = useState("");
@@ -53,10 +54,8 @@ export default function Todo() {
   return (
     <div className='container text-center'>
       <form action="https://lifehacker.ru/texniki-tajm-menedzhmenta/" target="_blank">
-         <button type='submit'
- className="mtransition duration-500 ease-in-out  
-       bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
-       text-7xl font-bold font-color-white text-white">БЕРИ НОШУ ПО СЕБЕ</button></form>
+      <BigButton>БЕРИ НОШУ ПО СЕБЕ</BigButton>
+      </form>
       <AddItem
         name={name}
         valid={valid}

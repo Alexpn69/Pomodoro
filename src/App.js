@@ -3,20 +3,21 @@ import Timer from './Timer';
 import Breake from './Breake';
 import Todo from './ToDoList';
 import Modal from './modal';
-// import Button from './button';
+import Button from './button';
+import BigButton from './bigButton';
 
 
 
 function App() {
  const [breake, setBreake] = useState(false)
  const [todo, setTodo] = useState(false)  
-
  const [minutes, setMinutes] = useState(15);
  const [seconds, setSeconds] = useState(0);
  const [startstop, setStartstop] = useState(false);
- 
-const [modalActive, setModalActive] = useState(false)
+ const [modalActive, setModalActive] = useState(false)
 
+ let settingMinutes = [15, 20, 25, 30, 35]
+ let doWhat = 'работать'
 
  useEffect(() => {
    let myInterval = setInterval(() => {
@@ -64,9 +65,6 @@ const [modalActive, setModalActive] = useState(false)
   handleStopClick()
  }
 
-//  function handleSetTodo(){
-//   setTodo(true)
-//  }
 
  if(breake){
  
@@ -86,14 +84,8 @@ const [modalActive, setModalActive] = useState(false)
   onToggleClick={handleToggleClick}
   onMinChange={handleMinChange}
   />
-
-
-  <button className="mtransition duration-500 ease-in-out  
-       bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
-       text-3xl font-bold font-color-white text-white" 
-             onClick={handleChangeBrake}>ЗА РАБОТУ</button>
   
-  
+  <Button onClick={handleChangeBrake}>ЗА РАБОТУ</Button>
   
   </div>
   </div>
@@ -105,30 +97,24 @@ const [modalActive, setModalActive] = useState(false)
    if(!todo){
       return (<>
 
+{/* <div className="container h-screen text-center bg-[url('foto4.jpg')] bg-cover bg-center"> */}
+
 <div className="bg-red-700 min-h-screen justify-center text-center">
       <div className = "max-w-2xl min-h-screen mx-auto">
 
-          
+      
                <form action="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank">
-         <button type='submit'
- className="mtransition duration-500 ease-in-out  
-       bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
-       text-7xl font-bold font-color-white text-white">POMODORO TIMER</button></form>
+       <BigButton>POMODORO TIMER</BigButton>
+       </form>
          
-         <Modal active={modalActive} setActive={setModalActive}> 
-<h1 className="py-1 font-bold text-white text-lg">
-        Сколько времени ты собрался работать?
-      </h1>
-      <select className="border-2 border-green-700 rounded-md p-1 text-green-700 text-lg" 
-      onChange={handleMinChange}>
-              <option className="text-green-700 text-lg">15</option>
-              <option className="text-green-700 text-lg">20</option>
-              <option className="text-green-700 text-lg">25</option>
-              <option className="text-green-700 text-lg">30</option>
-              <option className="text-green-700 text-lg">35</option>
-      </select>
-</Modal>
+         <Modal 
+         active={modalActive} 
+         setActive={setModalActive} 
+         onMinChange={handleMinChange} 
+         settingMinutes={settingMinutes}
+         doWhat={doWhat} /> 
 
+       
               <Timer 
          min={minutes}
          sec={seconds}
@@ -138,26 +124,11 @@ const [modalActive, setModalActive] = useState(false)
          startstop={startstop}
          setActive={setModalActive}
          />
-
-
         <div className="flex justify-center space-x-6">
+       
+          <Button onClick={handleChangeTimer}>УЖЕ УСТАЛ?</Button>
 
-         <button className="mtransition duration-500 ease-in-out  
-       bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
-       text-3xl font-bold font-color-white text-white" 
-          onClick={handleChangeTimer}>УЖЕ УСТАЛ?</button>
-
-          {/* <Button 
-          onChangeTimer={handleChangeTimer}>УЖЕ УСТАЛ?</Button> */}
-
-
-          <button className="mtransition duration-500 ease-in-out  
-       bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
-       text-3xl font-bold font-color-white text-white" 
-          onClick={() => setTodo(true)}>СПИСОК ДЕЛ</button>
-{/* 
-          <Button 
-          onSetTodo={handleSetTodo}>Список дел</Button> */}
+          <Button onClick={() => setTodo(true)}>СПИСОК ДЕЛ</Button>
 
          </div>      
     </div>
@@ -172,13 +143,11 @@ const [modalActive, setModalActive] = useState(false)
 
 <div className="bg-red-700 min-h-screen justify-center text-center">
       <div className = "max-w-2xl min-h-screen mx-auto">
-        
-      
+              
       <Todo />
-      <button className="mtransition duration-500 ease-in-out  
-       bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-3 
-       text-3xl font-bold font-color-white text-white" 
-             onClick={() => setTodo(false)}>ХВАТИТ ПЛАНИРОВАТЬ</button>
+     
+<Button onClick={() => setTodo(false)}>ХВАТИТ ПЛАНИРОВАТЬ</Button>
+     
       </div>
       </div>)
    }
