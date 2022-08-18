@@ -1,8 +1,9 @@
-import React from "react";
-
+import React, {useContext} from "react";
+import { Context } from "./Context";
 
 
 export default function ItemsList({items, onDeleteClick, onToggle}) {
+  const { theme} = useContext(Context);
   return (
  <div className="flex flex-wrap">
       {items.map((item) => (
@@ -15,9 +16,8 @@ export default function ItemsList({items, onDeleteClick, onToggle}) {
                <h2>{item.name}</h2>
                </div>
           <button
-            className="mtransition duration-500 ease-in-out  
-            bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-2 
-            text-md font-bold font-color-white text-white" 
+            className={theme ? "mtransition duration-500 ease-in-out bg-green-700 hover:bg-green-400 mt-10 rounded-lg p-2 text-md font-bold font-color-white text-white"
+            : "mtransition duration-500 ease-in-out bg-blue-700 hover:bg-blue-400 mt-10 rounded-lg p-2 text-md font-bold font-color-white text-white"} 
             onClick={() => onDeleteClick(item.id)}>
             Удалить
           </button>

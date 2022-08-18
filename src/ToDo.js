@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ItemsList from "./ItemsList";
 import AddItem from "./AddItem";
-import BigButton from "./bigButton";
+import BigButton from "./BigButton";
 
 export default function Todo() {
 

@@ -1,62 +1,83 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Timer from './Timer';
 import Breake from './Breake';
-import Todo from './ToDoList';
-import Modal from './modal';
-import Button from './button';
-import BigButton from './bigButton';
+import Todo from './ToDo';
+import Modal from './Modal';
+import Button from './Button';
+import BigButton from './BigButton';
+import Toggle from './Toggle';
+import { Context } from "./Context";
 
 
 
 function App() {
  const [breake, setBreake] = useState(false)
  const [todo, setTodo] = useState(false)  
- const [minutes, setMinutes] = useState(15);
- const [seconds, setSeconds] = useState(0);
+//  const [minutes, setMinutes] = useState(0);
+ const [seconds, setSeconds] = useState(900);
  const [startstop, setStartstop] = useState(false);
  const [modalActive, setModalActive] = useState(false)
+ const { theme} = useContext(Context);
+ 
+//  const settingMinutes = [{name: 5, count: 300}, {name: 10, count: 600}, {name: 15, count: 900}]
+ const settingMinutes = [300, 600, 900]
+ const doWhat = 'работать'
+ const light = "bg-red-700 min-h-screen justify-center text-center"
+ const dark = "bg-black min-h-screen justify-center text-center"
 
- let settingMinutes = [15, 20, 25, 30, 35]
- let doWhat = 'работать'
+//  useEffect(() => {
+//    let myInterval = setInterval(() => {
+//      if (startstop && seconds > 0) {
+//        setSeconds(seconds - 1);
+//      }
+//      if (seconds === 0) {
+//        if (minutes === 0) {
+//                handleStopClick()
+//        } else if (startstop) {
+//          setMinutes(minutes - 1);
+//          setSeconds(59);
+//        }
+//      }
+//    }, 1000);
+//    return () => {
+//      clearInterval(myInterval);
+//    };
+//  });
 
- useEffect(() => {
-   let myInterval = setInterval(() => {
-     if (startstop && seconds > 0) {
-       setSeconds(seconds - 1);
-     }
-     if (seconds === 0) {
-       if (minutes === 0) {
-               handleStopClick()
-       } else if (startstop) {
-         setMinutes(minutes - 1);
-         setSeconds(59);
-       }
-     }
-   }, 1000);
-   return () => {
-     clearInterval(myInterval);
-   };
- });
+useEffect(() => {
+  let myInterval = setInterval(() => {
+    if (startstop && seconds > 0) {
+      setSeconds(seconds - 1);
+    }
+    if (seconds === 0) {
+        handleStopClick()
+    }
+  }, 10);
+  return () => {
+    clearInterval(myInterval);
+  };
+}); 
+
 
  function handleToggleClick() {
    setStartstop(prev => !prev);
  }
 
  function handleStopClick() {
-   setMinutes(15);
-   setSeconds(0);
+  //  setMinutes(15);
+   setSeconds(900);
    setStartstop(false);
  }
 
  function handleMinChange(e) {
-   setMinutes(e.target.value);
-   setSeconds(0)
+  //  setMinutes(e.target.value);
+   setSeconds(e.target.value)
  }
 
  function handleChangeTimer(){
   setBreake(true)
-  setMinutes(5)
-  setSeconds(0)
+  // setMinutes(5)
+  setSeconds(900)
   setStartstop(false)
  }
 
@@ -65,19 +86,32 @@ function App() {
   handleStopClick()
  }
 
+//  const display = (seconds) => {
+//   let min = (seconds-seconds%60)/60
+//   let second = seconds%60
+//   if(min < 10 && second <10)
+//   {return "0" + min.toString() + ":" + "0" + second.toString()}
+//   if(min < 10 && second > 10)
+//   {return "0" + min.toString() + ":" + second.toString()}
+//   if(min > 10 && second < 10)
+//   {return min.toString() + ":" + "0" + second.toString()}
+//   if(min > 10 && second > 10)
+//   {return min.toString() + ":" + second.toString()}
+// }
+
 
  if(breake){
  
 
  return (
-  <>
   
-  <div className="bg-red-700 min-h-screen justify-center text-center">
+  
+  <div className={theme ? `${light}` : `${dark}`}>
       <div className = "max-w-2xl min-h-screen mx-auto">
   
  
   <Breake 
-  min={minutes}
+  // min={minutes}
   sec={seconds}
   startstop={startstop}
   onChangeTimer={handleChangeTimer}
@@ -85,21 +119,20 @@ function App() {
   onMinChange={handleMinChange}
   />
   
-  <Button onClick={handleChangeBrake}>ЗА РАБОТУ</Button>
+<Button onClick={handleChangeBrake}>ЗА РАБОТУ</Button>
   
-  </div>
-  </div>
-  </>) 
-   } 
+</div>
+</div>
+   ) 
+} 
  
  
  else {
-   if(!todo){
+   if(!todo){ 
       return (<>
 
-{/* <div className="container h-screen text-center bg-[url('foto4.jpg')] bg-cover bg-center"> */}
 
-<div className="bg-red-700 min-h-screen justify-center text-center">
+<div className={theme ? `${light}` : `${dark}`}> 
       <div className = "max-w-2xl min-h-screen mx-auto">
 
       
@@ -107,6 +140,9 @@ function App() {
        <BigButton>POMODORO TIMER</BigButton>
        </form>
          
+       <Toggle />
+
+
          <Modal 
          active={modalActive} 
          setActive={setModalActive} 
@@ -116,7 +152,7 @@ function App() {
 
        
               <Timer 
-         min={minutes}
+        //  min={minutes}
          sec={seconds}
          onStopClick={handleStopClick}
          onToggleClick={handleToggleClick}
@@ -130,7 +166,7 @@ function App() {
 
           <Button onClick={() => setTodo(true)}>СПИСОК ДЕЛ</Button>
 
-         </div>      
+         </div>
     </div>
     </div>
     </>
@@ -141,7 +177,7 @@ function App() {
    else {
       return (
 
-<div className="bg-red-700 min-h-screen justify-center text-center">
+<div className={theme ? `${light}` : `${dark}`}>
       <div className = "max-w-2xl min-h-screen mx-auto">
               
       <Todo />
@@ -150,6 +186,7 @@ function App() {
      
       </div>
       </div>)
+      
    }
  }
 }
@@ -157,3 +194,5 @@ function App() {
 
 
 export default App;
+
+
