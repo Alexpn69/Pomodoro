@@ -3,13 +3,13 @@ import Modal from "./Modal";
 import Button from "./Button";
 import BigButton from "./BigButton";
 import Toggle from "./Toggle";
+import { secondsToString } from "./utils/secondsToString";
 
 
 
-export default function Breake({onChangeTimer, onToggleClick, min, sec, startstop, onMinChange}) {
+export default function Breake({onChangeTimer, onToggleClick, sec, startstop, onMinChange}) {
 
   const [modalActive, setModalActive] = useState(false)
-  // const settingMinute = [{name: 5, count: 300}, {name: 10, count: 600}, {name: 15, count: 900}]
   const settingMinute = [300, 600, 900]
   const restWhat = 'отдыхать'
   
@@ -30,7 +30,7 @@ export default function Breake({onChangeTimer, onToggleClick, min, sec, startsto
          doWhat={restWhat} 
          /> 
 <h1 className="text-9xl text-white font-bold m-3">
-{(sec-sec%60)/60}:{sec%60 < 10 ? `0${sec%60}` : `${sec%60}`}
+{secondsToString(sec)}
       </h1>  
 
       <div className="flex justify-center space-x-6">

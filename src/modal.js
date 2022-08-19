@@ -20,7 +20,7 @@ return (
         Сколько времени ты собрался {doWhat}?
       </h1>
             <select className="border-2 border-black rounded-md p-1 text-black text-lg" onChange={onMinChange}>
-            {settingMinutes.map(minute => (<option className="text-black text-lg">{minute}</option>))} 
+            {settingMinutes.map(minute => (<option className="text-black text-lg" value={minute}>{minute/60}</option>))} 
              </select>
     </div>
     </div>

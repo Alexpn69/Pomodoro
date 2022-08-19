@@ -13,36 +13,15 @@ import { Context } from "./Context";
 function App() {
  const [breake, setBreake] = useState(false)
  const [todo, setTodo] = useState(false)  
-//  const [minutes, setMinutes] = useState(0);
  const [seconds, setSeconds] = useState(900);
  const [startstop, setStartstop] = useState(false);
  const [modalActive, setModalActive] = useState(false)
  const { theme} = useContext(Context);
  
-//  const settingMinutes = [{name: 5, count: 300}, {name: 10, count: 600}, {name: 15, count: 900}]
- const settingMinutes = [300, 600, 900]
+ const settingMinutes = [900, 1200, 1500, 1800, 2100]
  const doWhat = 'работать'
  const light = "bg-red-700 min-h-screen justify-center text-center"
  const dark = "bg-black min-h-screen justify-center text-center"
-
-//  useEffect(() => {
-//    let myInterval = setInterval(() => {
-//      if (startstop && seconds > 0) {
-//        setSeconds(seconds - 1);
-//      }
-//      if (seconds === 0) {
-//        if (minutes === 0) {
-//                handleStopClick()
-//        } else if (startstop) {
-//          setMinutes(minutes - 1);
-//          setSeconds(59);
-//        }
-//      }
-//    }, 1000);
-//    return () => {
-//      clearInterval(myInterval);
-//    };
-//  });
 
 useEffect(() => {
   let myInterval = setInterval(() => {
@@ -52,7 +31,7 @@ useEffect(() => {
     if (seconds === 0) {
         handleStopClick()
     }
-  }, 10);
+  }, 1000);
   return () => {
     clearInterval(myInterval);
   };
@@ -64,20 +43,17 @@ useEffect(() => {
  }
 
  function handleStopClick() {
-  //  setMinutes(15);
    setSeconds(900);
    setStartstop(false);
  }
 
  function handleMinChange(e) {
-  //  setMinutes(e.target.value);
    setSeconds(e.target.value)
  }
 
  function handleChangeTimer(){
   setBreake(true)
-  // setMinutes(5)
-  setSeconds(900)
+  setSeconds(300)
   setStartstop(false)
  }
 
@@ -86,22 +62,7 @@ useEffect(() => {
   handleStopClick()
  }
 
-//  const display = (seconds) => {
-//   let min = (seconds-seconds%60)/60
-//   let second = seconds%60
-//   if(min < 10 && second <10)
-//   {return "0" + min.toString() + ":" + "0" + second.toString()}
-//   if(min < 10 && second > 10)
-//   {return "0" + min.toString() + ":" + second.toString()}
-//   if(min > 10 && second < 10)
-//   {return min.toString() + ":" + "0" + second.toString()}
-//   if(min > 10 && second > 10)
-//   {return min.toString() + ":" + second.toString()}
-// }
-
-
  if(breake){
- 
 
  return (
   
@@ -111,7 +72,6 @@ useEffect(() => {
   
  
   <Breake 
-  // min={minutes}
   sec={seconds}
   startstop={startstop}
   onChangeTimer={handleChangeTimer}
@@ -136,11 +96,11 @@ useEffect(() => {
       <div className = "max-w-2xl min-h-screen mx-auto">
 
       
-               <form action="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank">
-       <BigButton>POMODORO TIMER</BigButton>
-       </form>
+        <form action="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank">
+        <BigButton>POMODORO TIMER</BigButton>
+        </form>
          
-       <Toggle />
+        <Toggle />
 
 
          <Modal 
@@ -152,7 +112,6 @@ useEffect(() => {
 
        
               <Timer 
-        //  min={minutes}
          sec={seconds}
          onStopClick={handleStopClick}
          onToggleClick={handleToggleClick}
